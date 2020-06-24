@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">My First App</string>
+    <string name="keyword" id='keyword'>Enter Keyword</string>
+    <string name="min_price">Minimum Price</string>
+    <string name="max_price">Maximum Price</string>
+    <string name="new_cond"><i>New</i></string>
+    <string name="used_cond"><i>Used</i></string>
+    <string name="unspecified_cond"><i>Unspecified</i></string>
+    <string name="search">Search</string>
+    <string name="clear">Clear</string>
+    <string-array name='sort_by'>
+        <item>Best Match</item>
+        <item>Price: highest first</item>
+        <item>Price + Shipping: Highest First</item>
+        <item>Price + Shipping: Lowest First</item>
+    </string-array>
+    <string name="keyword_label">Keyword</string>
+    <string name="price_range_label">Price Range</string>
+    <string name="condition_label">Condition</string>
+    <string name="sort_by_label">Sort By</string>
+    <string name="price_error">Please enter valid price values</string>
+    <string name="keyword_error">Please enter mandatory field.</string>
+</resources>
