@@ -32,35 +32,46 @@ import java.io.UnsupportedEncodingException;
 public class CatalogScreen extends AppCompatActivity {
 
     private RequestQueue requestQueue;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog_screen);
         final TextView textView = (TextView) findViewById(R.id.text);
-        String url = "https://jsonplaceholder.typicode.com/users";
+        //String url = "https://jsonplaceholder.typicode.com/users";
+        String url = "https://hw8-ebay-search-back.wl.r.appspot.com/cat";
         /*REQUEST *************************************************************/
         requestQueue = Volley.newRequestQueue(this);
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>() {
+        JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(JSONArray response) {
+                    public void onResponse(JSONObject response) {
                         Log.d("test", "response!");
-                        textView.setText("trimmed response" + response.toString());
+                        String stringResponse = response.toString();
+                        textView.setText(stringResponse);
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("test", error.getMessage());
+                        Log.d("test", "failure");
                         Toast.makeText(getApplicationContext(), "Nothing found", Toast.LENGTH_SHORT);
                 }
         });
 
         requestQueue.add(jsonArrayRequest);
-        //RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        //recyclerView.setHasFixedSize(true);
-        //LinearLayoutManager llm = new LinearLayoutManager(this);
-        //recyclerView.setLayoutManager(llm);
+
+
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        mAdapter = new MyAdapter(myDataset);
+        recyclerView.setAdapter(mAdapter);
 
 
         //specify an adapter
