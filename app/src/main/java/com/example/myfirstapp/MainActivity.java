@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
             Intent catalogScreenIntent = new Intent(this, CatalogScreen.class);
             startActivity(catalogScreenIntent);
         }
+//        nodesjs url/endpoint?keyword=&sortb
+        //res, keyword = req.query.keyword =
     }
 
     public void clear(View view) {

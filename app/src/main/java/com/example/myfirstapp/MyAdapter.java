@@ -15,11 +15,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
+
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
+    private List<String> products;
     private JSONArray mProducts;
 
-    public MyAdapter(JSONArray mProducts){
-        this.mProducts = mProducts;
+    public MyAdapter(List<String> mProducts){
+        this.products = mProducts;
     }
 
     @NonNull
@@ -32,15 +35,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        try {
-            holder.product = mProducts.getJSONObject(position);
-            String string1 = "This is a test";
-            String string2 = "More tests";
-            holder.prodDetailsView.setText(string1);
-            holder.priceDetailsView.setText(string2);
-        } catch (JSONException e) {
-            Log.e("error in onBind", "message");
-        }
+        //            holder.product = mProducts.getJSONObject(position);
+        holder.product = products.get(position);
+        String string1 = "This is a test";
+        String string2 = "More tests";
+        holder.prodDetailsView.setText(string1);
+        holder.priceDetailsView.setText(string2);
     }
 
     @Override
@@ -49,13 +49,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             return 0;
         }
         else {
-            return mProducts.length();
+            return products.size();
         }    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        public String product;
         TextView prodDetailsView;
         TextView priceDetailsView;
-        JSONObject product;
+        //JSONObject product;
 
         //itemView instance of card layout
         public ViewHolder(View itemView) {
