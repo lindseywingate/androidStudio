@@ -39,7 +39,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             holder.prodDetailsView.setText(string1);
             holder.priceDetailsView.setText(string2);
         } catch (JSONException e) {
-            Log.e("error in onBind", "secondstring");
+            Log.e("error in onBind", "message");
         }
     }
 

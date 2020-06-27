@@ -57,7 +57,7 @@ public class CatalogScreen extends AppCompatActivity {
                         try {
                             data = response.getJSONArray("searchResult").getJSONObject(0).getJSONArray("item");
                             Log.d("successful subarray!", "test");
-                            textView.setText(data.toString());
+                            //textView.setText(data.toString());
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
