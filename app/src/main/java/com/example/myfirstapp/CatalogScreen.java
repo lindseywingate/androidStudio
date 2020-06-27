@@ -28,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Iterator;
 
 public class CatalogScreen extends AppCompatActivity {
 
@@ -35,6 +36,7 @@ public class CatalogScreen extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private JSONArray data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +53,16 @@ public class CatalogScreen extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         Log.d("test", "response!");
                         String stringResponse = response.toString();
-                        textView.setText(stringResponse);
+                        JSONArray key = response.names();
+                        try {
+                            data = response.getJSONArray("searchResult").getJSONObject(0).getJSONArray("item");
+                            Log.d("successful subarray!", "test");
+                            textView.setText(data.toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        //textView.setText(stringResponse);
+                        //data = response;
                     }
                 },
                 new Response.ErrorListener() {
@@ -65,11 +76,10 @@ public class CatalogScreen extends AppCompatActivity {
         requestQueue.add(jsonArrayRequest);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-
-        //mAdapter = new MyAdapter(getApplicationContext(), JSONArray data);
+        recyclerView.setHasFixedSize(true);
+        mAdapter = new MyAdapter(data);
         recyclerView.setAdapter(mAdapter);
 
     }
