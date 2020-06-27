@@ -64,17 +64,14 @@ public class CatalogScreen extends AppCompatActivity {
 
         requestQueue.add(jsonArrayRequest);
 
-
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new MyAdapter(myDataset);
+        //mAdapter = new MyAdapter(getApplicationContext(), JSONArray data);
         recyclerView.setAdapter(mAdapter);
 
-
-        //specify an adapter
     }
 
 }
