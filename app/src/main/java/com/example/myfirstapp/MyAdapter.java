@@ -9,25 +9,31 @@ import android.widget.TextView;
 
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
     private List<String> products;
-    private JSONArray mProducts;
+    private Context context;
 
-    public MyAdapter(List<String> mProducts){
+    public MyAdapter(Context context, List<String> mProducts){
+        this.context = context;
         this.products = mProducts;
+    }
+
+    public void updateProducts(List<String> products){
+        this.products = new ArrayList<>(products);
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Log.d("test", "creating view holder");
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.card_item, parent, false);
         return new ViewHolder(view);
@@ -35,17 +41,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        //            holder.product = mProducts.getJSONObject(position);
-        holder.product = products.get(position);
-        String string1 = "This is a test";
-        String string2 = "More tests";
-        holder.prodDetailsView.setText(string1);
-        holder.priceDetailsView.setText(string2);
+        Log.d("test bind", "creating bind in view holder");
+        holder.itemId.setText("test id");
+        holder.prodTitle.setText("test title");
     }
 
     @Override
     public int getItemCount() {
-        if(mProducts == null) {
+        if(products == null) {
             return 0;
         }
         else {
@@ -54,16 +57,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public String product;
-        TextView prodDetailsView;
-        TextView priceDetailsView;
-        //JSONObject product;
+        CardView card;
+        TextView itemId;
+        TextView prodTitle;
 
         //itemView instance of card layout
         public ViewHolder(View itemView) {
             super(itemView);
-            //cv = (CardView)itemView.findViewById(R.id.card_view);
-            prodDetailsView = (TextView)itemView.findViewById(R.id.prodDetailsView);
-            priceDetailsView = (TextView)itemView.findViewById(R.id.priceDetailsView);
+            card = (CardView)itemView.findViewById(R.id.card_view);
+            itemId = (TextView)itemView.findViewById(R.id.item_id);
+            prodTitle = (TextView)itemView.findViewById(R.id.prod_title);
         }
 
     }

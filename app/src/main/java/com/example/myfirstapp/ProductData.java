@@ -1,25 +1,25 @@
 package com.example.myfirstapp;
 
 public class ProductData {
-    private String productName;
-    private String productDescription;
-    private int productImage;
+    private String itemId;
+    private String productTitle;
+    //private int productImage;
 
-    public ProductData(String productName, String productDescription, int productImage) {
-        this.productName = productName;
-        this.productDescription = productDescription;
-        this.productImage = productImage;
+    public ProductData(String itemId, String productTitle) {
+        this.itemId = itemId;
+        this.productTitle = productTitle;
+        //this.productImage = productImage;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getItemId() {
+        return itemId;
     }
 
-    public String getProductDescription() {
-        return productDescription;
+    public String getProductTitle() {
+        return productTitle;
     }
 
-    public int getProductImage() {
+   /* public int getProductImage() {
         return productImage;
-    }
+    }*/
 }

@@ -20,4 +20,6 @@
     <string name="sort_by_label">Sort By</string>
     <string name="price_error">Please enter valid price values</string>
     <string name="keyword_error">Please enter mandatory field.</string>
+    <string name="itemId">itemId</string>
+    <string name="prodTitle">prodTitle</string>
 </resources>

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Adapter;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -29,7 +30,7 @@ public class CatalogScreen extends AppCompatActivity {
 
     private RequestQueue requestQueue;
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
+    public MyAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private JSONArray data;
     private ArrayList<String> products = new ArrayList<>();
@@ -44,7 +45,7 @@ public class CatalogScreen extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        mAdapter = new MyAdapter(getProductList());
+        mAdapter = new MyAdapter(CatalogScreen.this, getProductList());
         recyclerView.setAdapter(mAdapter);
     }
 
@@ -64,9 +65,11 @@ public class CatalogScreen extends AppCompatActivity {
                             data = response.getJSONArray("searchResult").getJSONObject(0).getJSONArray("item");
                             for (int i = 0; i < data.length(); i++) {
                                 //add to string array
-                                products.add(data.getString(i));
                                 Log.d("successful subarray!", data.getString(i));
+                                products.add(data.getString(i));
                             }
+                            mAdapter.updateProducts(products);
+                            mAdapter.notifyDataSetChanged();
                             //textView.setText(data.toString());
                         } catch (JSONException e) {
                             e.printStackTrace();
