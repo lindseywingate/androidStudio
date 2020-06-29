@@ -16,6 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,16 +57,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         String product = products.get(position);
         try {
             JSONObject obj = new JSONObject(product);
-            holder.itemId.setText(obj.get("itemId").toString());
-            holder.prodTitle.setText(obj.get("title").toString());
-            URL url = new URL(obj.get("viewItemURL").toString());
-            Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-            Drawable d = Drawable.createFromStream(bmp, "src name");
-            return d;
+            String title = obj.get("title").toString();
+            String price = obj.getJSONObject("currentPrice").getJSONObject("convertedCurrentPrice").get("__value__").toString();
+            String shipping = obj.getJSONObject("shippingInfo").getJSONObject("shippingServiceCost").get("__value__").toString();
+            String condition = obj.getJSONObject("condition").get("conditionDisplayName").toString();
+            holder.prodTitle.setText(title);
+            //holder.prodPrice.setText(price);
+            //holder.prodShips.setText(shipping);
+            //holder.prodCond.setText(condition);
 
-        } catch (JSONException | MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+            String url = obj.get("viewItemURL").toString();
+            Picasso.with(context).load(url).into(holder.prodImage);
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         Log.d("fetched prod", product);
@@ -83,17 +87,23 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
     public class ViewHolder extends RecyclerView.ViewHolder {
         public String product;
         CardView card;
-        TextView itemId;
+        //TextView itemId;
         TextView prodTitle;
         ImageView prodImage;
+        TextView prodPrice;
+        TextView prodCond;
+        TextView prodShips;
 
         //itemView instance of card layout
         public ViewHolder(View itemView) {
             super(itemView);
             card = (CardView)itemView.findViewById(R.id.card_view);
-            itemId = (TextView)itemView.findViewById(R.id.item_id);
+            //itemId = (TextView)itemView.findViewById(R.id.item_id);
             prodTitle = (TextView)itemView.findViewById(R.id.prod_title);
             prodImage = (ImageView)itemView.findViewById(R.id.prod_image);
+            prodPrice = (TextView)itemView.findViewById(R.id.prod_price);
+            prodCond = (TextView)itemView.findViewById(R.id.prod_cond);
+            prodShips = (TextView)itemView.findViewById(R.id.prod_ships);
         }
 
     }

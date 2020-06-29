@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My First App</string>
+    <string name="app_name">eBay Catalog Search</string>
     <string name="keyword" id='keyword'>Enter Keyword</string>
     <string name="min_price">Minimum Price</string>
     <string name="max_price">Maximum Price</string>
@@ -22,4 +22,5 @@
     <string name="keyword_error">Please enter mandatory field.</string>
     <string name="itemId">itemId</string>
     <string name="prodTitle">prodTitle</string>
+    <string name="search_results">Search Results</string>
 </resources>
