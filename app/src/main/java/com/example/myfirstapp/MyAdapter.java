@@ -1,10 +1,14 @@
 package com.example.myfirstapp;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -13,7 +17,13 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,8 +52,23 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d("test bind", "creating bind in view holder");
-        holder.itemId.setText("test id");
-        holder.prodTitle.setText("test title");
+        String product = products.get(position);
+        try {
+            JSONObject obj = new JSONObject(product);
+            holder.itemId.setText(obj.get("itemId").toString());
+            holder.prodTitle.setText(obj.get("title").toString());
+            URL url = new URL(obj.get("viewItemURL").toString());
+            Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+            Drawable d = Drawable.createFromStream(bmp, "src name");
+            return d;
+
+        } catch (JSONException | MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.d("fetched prod", product);
+
     }
 
     @Override
@@ -60,6 +85,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         CardView card;
         TextView itemId;
         TextView prodTitle;
+        ImageView prodImage;
 
         //itemView instance of card layout
         public ViewHolder(View itemView) {
@@ -67,6 +93,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             card = (CardView)itemView.findViewById(R.id.card_view);
             itemId = (TextView)itemView.findViewById(R.id.item_id);
             prodTitle = (TextView)itemView.findViewById(R.id.prod_title);
+            prodImage = (ImageView)itemView.findViewById(R.id.prod_image);
         }
 
     }
