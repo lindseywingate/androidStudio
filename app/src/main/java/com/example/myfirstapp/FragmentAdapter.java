@@ -5,9 +5,9 @@ import android.content.Context;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 public class FragmentAdapter extends FragmentPagerAdapter {
-
     private Context mContext;
 
     public FragmentAdapter(Context context, FragmentManager fm) {
@@ -18,19 +18,22 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     // This determines the fragment for each tab
     @Override
     public Fragment getItem(int position) {
-        if (position == 0) {
-            return new ProductFragment();
-        } else if (position == 1){
-            return new SellerInfoFragment();
-        } else {
-            return new ShippingFragment();
+        switch(position) {
+            case 0:
+                return new ProductFragment();
+            case 1:
+                return new SellerInfoFragment();
+            case 2:
+                return new ShippingFragment();
+            default:
+                return null;
         }
     }
 
     // This determines the number of tabs
     @Override
     public int getCount() {
-        return 4;
+        return 3;
     }
 
     // This determines the title for each tab
