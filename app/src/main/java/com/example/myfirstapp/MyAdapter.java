@@ -67,13 +67,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             JSONObject conditionDisplayNameArray = conditionArray.getJSONObject(0);
             JSONArray conditionData = conditionDisplayNameArray.getJSONArray("conditionDisplayName");
             String condition = conditionData.get(0).toString();
-            Log.d("condition", "condition"+condition);
-
+            String[] condArray = condition.split("", 1);
+            condition = condArray[0];
             //String price
-
+            JSONArray costArray = obj.getJSONArray("sellingStatus");
+            JSONObject costArray2 = costArray.getJSONObject(0);
+            JSONArray costData = costArray2.getJSONArray("currentPrice");
+            JSONObject costObj = costData.getJSONObject(0);
+            String cost = costObj.get("__value__").toString();
+            cost = "$"+cost;
 
             String image = obj.get("galleryURL").toString().replace("[", "").replace("]", "").replace("\"", "");
-            ProductData data = new ProductData(title, shipping, condition, "good", image);
+            ProductData data = new ProductData(title, shipping, condition, cost, image);
             holder.setItem(data);
 
             String url = obj.get("viewItemURL").toString();
