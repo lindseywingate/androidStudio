@@ -53,15 +53,16 @@ public class MainActivity extends AppCompatActivity {
             showKeywordError.setVisibility(View.VISIBLE);
             next = false;
         }
-//        if(minPrice != "" && maxPrice != "" && Integer.parseInt(minPrice)>Integer.parseInt(maxPrice)) {
-//            showPriceError.setVisibility(View.VISIBLE);
-//            next = false;
-//        }
+        if (!minPrice.equals("") && !maxPrice.equals("") && Integer.parseInt(minPrice) > Integer.parseInt(maxPrice)) {
+            showPriceError.setVisibility(View.VISIBLE);
+            next = false;
+        }
         else {
             showKeywordError.setVisibility(View.INVISIBLE);
             showPriceError.setVisibility(View.INVISIBLE);
+            next = true;
         }
-        if(next) {
+        if(next==true) {
             Intent catalogScreenIntent = new Intent(this, CatalogScreen.class);
             startActivity(catalogScreenIntent);
         }
