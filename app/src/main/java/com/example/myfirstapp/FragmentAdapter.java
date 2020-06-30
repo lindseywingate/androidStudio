@@ -1,7 +1,12 @@
 package com.example.myfirstapp;
 
 import android.content.Context;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -19,10 +24,10 @@ public class FragmentAdapter extends FragmentPagerAdapter {
         mContext = context;
     }
 
-//    public static void updateProducts(List<String> products){
-//        this.data = new ArrayList<>(products);
-//    }
-
+    public void updateProducts(List<String> product){
+        this.data = new ArrayList<>(product);
+        Log.d("data updated", data.toString());
+    }
     public void notifyItemChanged(MyAdapter.ViewHolder holder, int position) {};
 
     // This determines the fragment for each tab
@@ -30,7 +35,7 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch(position) {
             case 0:
-                return new ProductFragment();
+                return ProductFragment.newInstance("test", "test2");
             case 1:
                 return new SellerInfoFragment();
             case 2:
