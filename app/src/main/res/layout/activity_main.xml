@@ -18,13 +18,6 @@
         android:inputType="text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <!--input-->
-    <!--label-->
-
-    <!--input-->
-
-    <!--label-->
-
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="349dp"
@@ -35,7 +28,6 @@
         android:entries="@array/sort_by"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/sort_by_label"
         android:layout_width="wrap_content"
@@ -49,7 +41,6 @@
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/condition_label"
         android:layout_width="wrap_content"
@@ -63,7 +54,6 @@
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
     <CheckBox
         android:id="@+id/new_cond"
         android:layout_width="wrap_content"
@@ -76,7 +66,6 @@
         app:layout_constraintHorizontal_bias="0.058"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
     <CheckBox
         android:id="@+id/used_cond"
         android:layout_width="wrap_content"
@@ -85,11 +74,10 @@
         android:layout_marginLeft="144dp"
         android:layout_marginTop="244dp"
         android:text="@string/used_cond"
-        app:layout_constraintEnd_toStartOf="@+id/checkBox3"
+        app:layout_constraintEnd_toStartOf="@+id/unspecified_cond"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
     <CheckBox
         android:id="@+id/unspecified_cond"
         android:layout_width="wrap_content"
@@ -98,21 +86,6 @@
         android:layout_marginLeft="260dp"
         android:layout_marginTop="244dp"
         android:text="@string/unspecified_cond"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/min_price_input"
-        android:layout_width="163dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="140dp"
-        android:ems="10"
-        android:hint="@string/min_price"
-        android:inputType="number"
-        app:layout_constraintEnd_toStartOf="@+id/max_price_input"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -130,7 +103,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@string/price_range_label" />
-
+    <EditText
+        android:id="@+id/min_price_input"
+        android:layout_width="163dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="140dp"
+        android:ems="10"
+        android:hint="@string/min_price"
+        android:inputType="number"
+        app:layout_constraintEnd_toStartOf="@+id/max_price_input"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text=""/>
     <EditText
         android:id="@+id/max_price_input"
         android:layout_width="147dp"
@@ -142,7 +129,8 @@
         android:hint="@string/max_price"
         android:inputType="number"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:text=""/>
 
     <TextView
         android:id="@+id/price_error"
@@ -156,7 +144,8 @@
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/price_error" />
+        tools:text="@string/price_error"
+        />
 
     <Button
         android:id="@+id/button3"

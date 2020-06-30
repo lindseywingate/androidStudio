@@ -3,6 +3,7 @@ package com.example.myfirstapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -52,8 +53,13 @@ public class MainActivity extends AppCompatActivity {
             showKeywordError.setVisibility(View.VISIBLE);
             next = false;
         }
+        if(minPrice != "" && maxPrice != "" && Integer.parseInt(minPrice)>Integer.parseInt(maxPrice)) {
+            showPriceError.setVisibility(View.VISIBLE);
+            next = false;
+        }
         else {
             showKeywordError.setVisibility(View.INVISIBLE);
+            showPriceError.setVisibility(View.INVISIBLE);
         }
         if(next) {
             Intent catalogScreenIntent = new Intent(this, CatalogScreen.class);
