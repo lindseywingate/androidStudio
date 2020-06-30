@@ -28,4 +28,10 @@
     <string name="category_product">Product</string>
     <string name="category_seller_info">Seller Info</string>
     <string name="category_shipping">Shipping</string>
+    <string name="resources">Resources</string>
+    <string name="specifications">Specifications</string>
+    <string name="prod_features">Product Features</string>
+    <string name="seller_info">Seller Information</string>
+    <string name="return_policies">Return Policies</string>
+    <string name="shipping_info">Shipping Information</string>
 </resources>
