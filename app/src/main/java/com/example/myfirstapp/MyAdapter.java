@@ -1,6 +1,7 @@
 package com.example.myfirstapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -59,19 +60,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         try {
             JSONObject obj = new JSONObject(product);
             String title = obj.get("title").toString().replace("[", "").replace("]", "").replace("\"", "");
-            //String price = obj.getJSONObject("currentPrice").getJSONObject("convertedCurrentPrice").get("__value__").toString();
-            //JSONArray shippingArray = obj.getJSONObject("shippingInfo").getJSONArray("shippingServiceCost");
-            //String shipping = shippingArray.getJSONObject("__value__").toString();
-            //String condition = obj.getJSONObject("condition").get("conditionDisplayName").toString();
-            //holder.prodTitle.setText(title);
-            //holder.prodPrice.setText(price);
-            //holder.prodShips.setText(shipping);
-            //holder.prodCond.setText(condition);
+            //String shipping
+            //String condition
+            //String price
             ProductData data = new ProductData(title, "0", "0", "good");
-//            data.setProductTitle(title);
-//            data.setProductPrice(price);
-//            data.setProductShipping(shipping);
-//            data.setProductCondition(condition);
             holder.setItem(data);
 
             String url = obj.get("viewItemURL").toString();
@@ -90,7 +82,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         }
         else {
             return products.size();
-        }    }
+        }
+    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public String product;
@@ -106,6 +100,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         //itemView instance of card layout
         public ViewHolder(View itemView) {
             super(itemView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View itemView) {
+                    itemView.getContext().startActivity(new Intent(itemView.getContext(), ProductScreen.class));
+                }
+            });
+
             card = (CardView)itemView.findViewById(R.id.card_view);
             //itemId = (TextView)itemView.findViewById(R.id.item_id);
             prodTitle = (TextView)itemView.findViewById(R.id.prod_title);
@@ -121,8 +123,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             prodPrice.setText(data.getProductPrice());
             prodCond.setText(data.getProductCondition());
             prodShips.setText(data.getProductShipping());
-
         }
+
+
 
     }
 
