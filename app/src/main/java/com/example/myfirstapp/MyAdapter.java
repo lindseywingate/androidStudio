@@ -60,13 +60,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             JSONObject obj = new JSONObject(product);
             String title = obj.get("title").toString().replace("[", "").replace("]", "").replace("\"", "");
             //String price = obj.getJSONObject("currentPrice").getJSONObject("convertedCurrentPrice").get("__value__").toString();
-            //String shipping = obj.getJSONObject("shippingInfo").getJSONObject("shippingServiceCost").get("__value__").toString();
+            //JSONArray shippingArray = obj.getJSONObject("shippingInfo").getJSONArray("shippingServiceCost");
+            //String shipping = shippingArray.getJSONObject("__value__").toString();
             //String condition = obj.getJSONObject("condition").get("conditionDisplayName").toString();
-            holder.prodTitle.setText(title);
+            //holder.prodTitle.setText(title);
             //holder.prodPrice.setText(price);
             //holder.prodShips.setText(shipping);
             //holder.prodCond.setText(condition);
-
+            ProductData data = new ProductData(title, "0", "0", "good");
+//            data.setProductTitle(title);
+//            data.setProductPrice(price);
+//            data.setProductShipping(shipping);
+//            data.setProductCondition(condition);
+            holder.setItem(data);
 
             String url = obj.get("viewItemURL").toString();
             //Picasso.with(context).load(url).into(holder.prodImage);
@@ -95,6 +101,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         TextView prodPrice;
         TextView prodCond;
         TextView prodShips;
+        ProductData item;
 
         //itemView instance of card layout
         public ViewHolder(View itemView) {
@@ -106,6 +113,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             prodPrice = (TextView)itemView.findViewById(R.id.prod_price);
             prodCond = (TextView)itemView.findViewById(R.id.prod_cond);
             prodShips = (TextView)itemView.findViewById(R.id.prod_ships);
+        }
+
+        public void setItem(ProductData data) {
+            Log.d("setItem", "set item called"+data.toString());
+            prodTitle.setText(data.getProductTitle());
+            prodPrice.setText(data.getProductPrice());
+            prodCond.setText(data.getProductCondition());
+            prodShips.setText(data.getProductShipping());
+
         }
 
     }

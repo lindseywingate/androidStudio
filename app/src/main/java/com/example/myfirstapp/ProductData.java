@@ -4,15 +4,15 @@ public class ProductData {
     private String itemId;
     private String productTitle;
     private int productImage;
-    private String productShip;
+    private String productShipping;
     private String productCondition;
     private String productPrice;
 
-    public ProductData(String itemId, String productTitle, String productShip, String productCondition,String productPrice) {
-        this.itemId = itemId;
+    public ProductData( String productTitle, String productShip, String productCondition,String productPrice) {
+        //this.itemId = itemId;
         this.productTitle = productTitle;
         this.productImage = productImage;
-        this.productShip = productShip;
+        this.productShipping = productShip;
         this.productCondition = productCondition;
         this.productPrice = productPrice;
     }
@@ -24,20 +24,25 @@ public class ProductData {
     public String getProductTitle() {
         return productTitle;
     }
+    public void setProductTitle(String newTitle) {this.productTitle = newTitle;}
 
-   public int getProductImage() {
+    public int getProductImage() {
         return productImage;
     }
 
-    public String getProductShip() {
-        return productShip;
+    public String getProductShipping() {
+        return productShipping;
     }
+    public void setProductShipping(String newShipping) {this.productShipping = newShipping;}
 
     public String getProductCondition() {
         return productCondition;
     }
+    public void setProductCondition(String newCondition) {this.productShipping = newCondition;}
 
     public String getProductPrice() {
         return productPrice;
     }
+    public void setProductPrice(String newPrice) {this.productShipping = newPrice;}
+
 }
