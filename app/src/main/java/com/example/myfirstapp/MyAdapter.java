@@ -42,6 +42,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         this.products = new ArrayList<>(products);
     }
 
+    public void notifyItemChanged(ViewHolder holder, int position) {};
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -57,14 +58,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         String product = products.get(position);
         try {
             JSONObject obj = new JSONObject(product);
-            String title = obj.get("title").toString();
-            String price = obj.getJSONObject("currentPrice").getJSONObject("convertedCurrentPrice").get("__value__").toString();
-            String shipping = obj.getJSONObject("shippingInfo").getJSONObject("shippingServiceCost").get("__value__").toString();
-            String condition = obj.getJSONObject("condition").get("conditionDisplayName").toString();
+            String title = obj.get("title").toString().replace("[", "").replace("]", "").replace("\"", "");
+            //String price = obj.getJSONObject("currentPrice").getJSONObject("convertedCurrentPrice").get("__value__").toString();
+            //String shipping = obj.getJSONObject("shippingInfo").getJSONObject("shippingServiceCost").get("__value__").toString();
+            //String condition = obj.getJSONObject("condition").get("conditionDisplayName").toString();
             holder.prodTitle.setText(title);
             //holder.prodPrice.setText(price);
             //holder.prodShips.setText(shipping);
             //holder.prodCond.setText(condition);
+
 
             String url = obj.get("viewItemURL").toString();
             //Picasso.with(context).load(url).into(holder.prodImage);
