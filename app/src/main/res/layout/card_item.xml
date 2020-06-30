@@ -27,13 +27,14 @@
                 android:id="@+id/prod_title"
                 android:layout_width="match_parent"
                 android:layout_height="58dp"
-                android:ellipsize="end"
                 android:gravity="left"
-                android:maxLines="3"
                 android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:maxLines="3"
                 android:text="TextView"
                 android:textAllCaps="true"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                />
 
             <TextView
                 android:id="@+id/prod_ships"
