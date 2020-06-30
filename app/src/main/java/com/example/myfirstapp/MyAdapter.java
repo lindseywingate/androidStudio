@@ -67,7 +67,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             //holder.prodCond.setText(condition);
 
             String url = obj.get("viewItemURL").toString();
-            Picasso.with(context).load(url).into(holder.prodImage);
+            //Picasso.with(context).load(url).into(holder.prodImage);
         } catch (JSONException e) {
             e.printStackTrace();
         }
