@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Adapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -36,6 +37,8 @@ public class CatalogScreen extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private JSONArray data;
     private ArrayList<String> products = new ArrayList<>();
+    private String count;
+    private TextView countText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +58,12 @@ public class CatalogScreen extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
-        mAdapter = new MyAdapter(CatalogScreen.this, getProductList(keywords, minPrice, maxPrice, newCond, usedCond, unspecifiedCond, sortBy));
+        mAdapter = new MyAdapter(CatalogScreen.this, getProductList(keywords, minPrice, maxPrice, newCond, usedCond, unspecifiedCond, sortBy), count);
         recyclerView.setAdapter(mAdapter);
     }
 
     /*REQUEST *************************************************************/
-    protected ArrayList<String> getProductList(String keywords, String minPrice, String maxPrice, String newCond, String usedCond, String unspecifiedCond, String sortBy) {
+    protected ArrayList<String> getProductList(final String keywords, String minPrice, String maxPrice, String newCond, String usedCond, String unspecifiedCond, String sortBy) {
         String url = "https://hw8-ebay-search-back.wl.r.appspot.com/cat?name="+keywords+":"+sortBy+":"+minPrice+":"+maxPrice+":"+newCond+":"+usedCond+":"+unspecifiedCond;
         requestQueue = Volley.newRequestQueue(this);
         JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -72,6 +75,9 @@ public class CatalogScreen extends AppCompatActivity {
                         //JSONArray key = response.names();
                         try {
                             //data is json array
+                            count = response.getJSONArray("searchResult").getJSONObject(0).getString("@count");
+                            countText = (TextView) findViewById(R.id.search_results);
+                            countText.setText("Showing "+count+" results for "+ keywords);
                             data = response.getJSONArray("searchResult").getJSONObject(0).getJSONArray("item");
                             for (int i = 0; i < data.length(); i++) {
                                 //add to string array

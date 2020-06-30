@@ -31,6 +31,7 @@ public class ProductScreen extends AppCompatActivity {
     private RequestQueue requestQueue;
     private ArrayList<String> productData = new ArrayList<>();
     private FragmentAdapter adapter;
+    private String count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +71,6 @@ public class ProductScreen extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("test", "response!");
                         try {
                             //data is json array
                             data = response.getJSONArray("searchResult").getJSONObject(0).getJSONArray("item");

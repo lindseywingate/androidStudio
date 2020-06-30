@@ -25,10 +25,12 @@ import java.util.List;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
     private List<String> products;
     private Context context;
+    private String count;
 
-    public MyAdapter(Context context, List<String> mProducts){
+    public MyAdapter(Context context, List<String> mProducts, String count){
         this.context = context;
         this.products = mProducts;
+        this.count = count;
     }
 
     public void updateProducts(List<String> products){
