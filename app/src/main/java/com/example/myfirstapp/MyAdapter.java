@@ -54,7 +54,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             //String shipping
             //String condition
             //String price
-            ProductData data = new ProductData(title, "0", "0", "good");
+            String image = obj.get("galleryURL").toString().replace("[", "").replace("]", "").replace("\"", "");
+            ProductData data = new ProductData(title, "0", "0", "good", image);
             holder.setItem(data);
 
             String url = obj.get("viewItemURL").toString();
@@ -114,6 +115,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             prodPrice.setText(data.getProductPrice());
             prodCond.setText(data.getProductCondition());
             prodShips.setText(data.getProductShipping());
+            Picasso.with(context).load(data.getImage()).into(prodImage);
         }
     }
 

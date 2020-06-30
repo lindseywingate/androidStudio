@@ -53,10 +53,10 @@ public class MainActivity extends AppCompatActivity {
             showKeywordError.setVisibility(View.VISIBLE);
             next = false;
         }
-        if(minPrice != "" && maxPrice != "" && Integer.parseInt(minPrice)>Integer.parseInt(maxPrice)) {
-            showPriceError.setVisibility(View.VISIBLE);
-            next = false;
-        }
+//        if(minPrice != "" && maxPrice != "" && Integer.parseInt(minPrice)>Integer.parseInt(maxPrice)) {
+//            showPriceError.setVisibility(View.VISIBLE);
+//            next = false;
+//        }
         else {
             showKeywordError.setVisibility(View.INVISIBLE);
             showPriceError.setVisibility(View.INVISIBLE);

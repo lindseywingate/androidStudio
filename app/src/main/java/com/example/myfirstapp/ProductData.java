@@ -7,14 +7,16 @@ public class ProductData {
     private String productShipping;
     private String productCondition;
     private String productPrice;
+    private String image;
 
-    public ProductData( String productTitle, String productShip, String productCondition,String productPrice) {
+    public ProductData( String productTitle, String productShip, String productCondition,String productPrice, String image) {
         //this.itemId = itemId;
         this.productTitle = productTitle;
         this.productImage = productImage;
         this.productShipping = productShip;
         this.productCondition = productCondition;
         this.productPrice = productPrice;
+        this.image = image;
     }
 
     public String getItemId() {
@@ -44,5 +46,8 @@ public class ProductData {
         return productPrice;
     }
     public void setProductPrice(String newPrice) {this.productShipping = newPrice;}
+
+    public String getImage() {return image;}
+    public void setImage(String image) {this.image = image;}
 
 }
