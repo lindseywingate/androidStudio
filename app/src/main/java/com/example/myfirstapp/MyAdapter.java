@@ -15,10 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
@@ -51,11 +53,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         try {
             JSONObject obj = new JSONObject(product);
             String title = obj.get("title").toString().replace("[", "").replace("]", "").replace("\"", "");
-            //String shipping
+            JSONArray shippingInfoArray = obj.getJSONArray("shippingInfo");
+            JSONObject shippingServiceCostArray = shippingInfoArray.getJSONObject(0);
+            JSONArray shippingData = shippingServiceCostArray.getJSONArray("shippingServiceCost");
+            JSONObject shippingObj = shippingData.getJSONObject(0);
+            String shipping = shippingObj.get("__value__").toString();
+            if(shipping.equals("0.0")) shipping = "Free Shipping";
+            else shipping = "Ships for $"+shipping;
             //String condition
             //String price
             String image = obj.get("galleryURL").toString().replace("[", "").replace("]", "").replace("\"", "");
-            ProductData data = new ProductData(title, "0", "0", "good", image);
+            ProductData data = new ProductData(title, shipping, "0", "good", image);
             holder.setItem(data);
 
             String url = obj.get("viewItemURL").toString();

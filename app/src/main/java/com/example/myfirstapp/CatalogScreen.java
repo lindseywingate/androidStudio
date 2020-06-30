@@ -63,7 +63,7 @@ public class CatalogScreen extends AppCompatActivity {
 
     /*REQUEST *************************************************************/
     protected ArrayList<String> getProductList(String keywords, String minPrice, String maxPrice, String newCond, String usedCond, String unspecifiedCond, String sortBy) {
-        String url = "https://hw8-ebay-search-back.wl.r.appspot.com/cat?name="+keywords+":"+minPrice+":"+maxPrice+":"+newCond+":"+usedCond+":"+unspecifiedCond+":"+sortBy;
+        String url = "https://hw8-ebay-search-back.wl.r.appspot.com/cat?name="+keywords+":"+sortBy+":"+minPrice+":"+maxPrice+":"+newCond+":"+usedCond+":"+unspecifiedCond;
         requestQueue = Volley.newRequestQueue(this);
         JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
