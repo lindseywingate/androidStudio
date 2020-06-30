@@ -106,5 +106,4 @@ public class CatalogScreen extends AppCompatActivity {
         requestQueue.add(jsonArrayRequest);
         return products;
     }
-
 }

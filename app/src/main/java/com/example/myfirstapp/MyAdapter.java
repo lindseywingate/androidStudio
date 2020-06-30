@@ -20,7 +20,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
@@ -37,6 +36,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
     }
 
     public void notifyItemChanged(ViewHolder holder, int position) {};
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -53,6 +53,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         try {
             JSONObject obj = new JSONObject(product);
             String title = obj.get("title").toString().replace("[", "").replace("]", "").replace("\"", "");
+            String itemID = obj.get("itemId").toString().replace("[", "").replace("]", "");
+            Log.d("itemID", "this is it"+itemID);
             //shipping
             JSONArray shippingInfoArray = obj.getJSONArray("shippingInfo");
             JSONObject shippingServiceCostArray = shippingInfoArray.getJSONObject(0);
@@ -69,6 +71,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             String condition = conditionData.get(0).toString();
             String[] condArray = condition.split("", 1);
             condition = condArray[0];
+
             //String price
             JSONArray costArray = obj.getJSONArray("sellingStatus");
             JSONObject costArray2 = costArray.getJSONObject(0);
@@ -77,17 +80,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             String cost = costObj.get("__value__").toString();
             cost = "$"+cost;
 
+            //image
             String image = obj.get("galleryURL").toString().replace("[", "").replace("]", "").replace("\"", "");
-            ProductData data = new ProductData(title, shipping, condition, cost, image);
+            ProductData data = new ProductData(title, shipping, condition, cost, image, itemID);
             holder.setItem(data);
 
             String url = obj.get("viewItemURL").toString();
-            //Picasso.with(context).load(url).into(holder.prodImage);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         Log.d("fetched prod", product);
-
     }
 
     @Override
@@ -100,29 +102,28 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         }
     }
 
-
     public class ViewHolder extends RecyclerView.ViewHolder {
         public String product;
         CardView card;
-        //TextView itemId;
         TextView prodTitle;
         ImageView prodImage;
         TextView prodPrice;
         TextView prodCond;
         TextView prodShips;
         ProductData item;
+        String productId;
 
         //itemView instance of card layout
         public ViewHolder(View itemView) {
             super(itemView);
-
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View itemView) {
-                    itemView.getContext().startActivity(new Intent(itemView.getContext(), ProductScreen.class));
+                    Intent productScreenIntent = new Intent(itemView.getContext(), ProductScreen.class);
+                    productScreenIntent.putExtra("productId", productId);
+                    itemView.getContext().startActivity(productScreenIntent);
                 }
             });
-
             card = (CardView)itemView.findViewById(R.id.card_view);
             //itemId = (TextView)itemView.findViewById(R.id.item_id);
             prodTitle = (TextView)itemView.findViewById(R.id.prod_title);
@@ -139,6 +140,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             prodCond.setText(data.getProductCondition());
             prodShips.setText(data.getProductShipping());
             Picasso.with(context).load(data.getImage()).into(prodImage);
+            productId = data.getProductId();
         }
     }
 
