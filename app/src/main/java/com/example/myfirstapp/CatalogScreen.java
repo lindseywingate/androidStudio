@@ -44,17 +44,26 @@ public class CatalogScreen extends AppCompatActivity {
         //final TextView textView = (TextView) findViewById(R.id.text);
         Intent intent = getIntent();
         String keywords = intent.getStringExtra("keywords");
+        String minPrice = intent.getStringExtra("minPrice");
+        String maxPrice = intent.getStringExtra("maxPrice");
+        String newCond = intent.getStringExtra("newCond");
+        String usedCond = intent.getStringExtra("usedCond");
+        String unspecifiedCond = intent.getStringExtra("unspecifiedCond");
+        String sortBy = intent.getStringExtra("sortBy");
+
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
-        mAdapter = new MyAdapter(CatalogScreen.this, getProductList(keywords));
+        mAdapter = new MyAdapter(CatalogScreen.this, getProductList(keywords, minPrice, maxPrice, newCond, usedCond, unspecifiedCond, sortBy));
         recyclerView.setAdapter(mAdapter);
     }
 
+
+
     /*REQUEST *************************************************************/
-    protected ArrayList<String> getProductList(String keywords) {
-        String url = "https://hw8-ebay-search-back.wl.r.appspot.com/cat?name="+keywords;
+    protected ArrayList<String> getProductList(String keywords, String minPrice, String maxPrice, String newCond, String usedCond, String unspecifiedCond, String sortBy) {
+        String url = "https://hw8-ebay-search-back.wl.r.appspot.com/cat?name="+keywords+":"+minPrice+":"+maxPrice+":"+newCond+":"+usedCond+":"+unspecifiedCond+":"+sortBy;
         requestQueue = Volley.newRequestQueue(this);
         JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {

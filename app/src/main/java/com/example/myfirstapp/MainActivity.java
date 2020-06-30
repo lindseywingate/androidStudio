@@ -65,6 +65,12 @@ public class MainActivity extends AppCompatActivity {
         if(next==true) {
             Intent catalogScreenIntent = new Intent(this, CatalogScreen.class);
             catalogScreenIntent.putExtra("keywords", keywordText);
+            catalogScreenIntent.putExtra("minPrice", minPrice);
+            catalogScreenIntent.putExtra("maxPrice", maxPrice);
+            catalogScreenIntent.putExtra("newCond", new_cond);
+            catalogScreenIntent.putExtra("usedCond", used_cond);
+            catalogScreenIntent.putExtra("unspecifiedCond", unspecified_cond);
+            catalogScreenIntent.putExtra("sortBy", sort_by);
             startActivity(catalogScreenIntent);
         }
 //        nodesjs url/endpoint?keyword=&sortb
