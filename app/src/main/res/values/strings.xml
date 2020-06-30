@@ -25,4 +25,7 @@
     <string name="search_results">Search Results</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="category_product">Product</string>
+    <string name="category_seller_info">Seller Info</string>
+    <string name="category_shipping">Shipping</string>
 </resources>
