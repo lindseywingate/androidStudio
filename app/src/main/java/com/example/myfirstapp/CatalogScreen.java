@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Adapter;
@@ -41,18 +42,19 @@ public class CatalogScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog_screen);
         //final TextView textView = (TextView) findViewById(R.id.text);
-
+        Intent intent = getIntent();
+        String keywords = intent.getStringExtra("keywords");
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
-        mAdapter = new MyAdapter(CatalogScreen.this, getProductList());
+        mAdapter = new MyAdapter(CatalogScreen.this, getProductList(keywords));
         recyclerView.setAdapter(mAdapter);
     }
 
     /*REQUEST *************************************************************/
-    protected ArrayList<String> getProductList() {
-        String url = "https://hw8-ebay-search-back.wl.r.appspot.com/cat";
+    protected ArrayList<String> getProductList(String keywords) {
+        String url = "https://hw8-ebay-search-back.wl.r.appspot.com/cat?name="+keywords;
         requestQueue = Volley.newRequestQueue(this);
         JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
