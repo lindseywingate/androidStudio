@@ -12,21 +12,61 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentAdapter extends FragmentPagerAdapter {
     private Context mContext;
     private List<String> data;
+    private String title;
+    private String cost;
+    private String brand;
+    private String shipping;
+    private String condition;
 
     public FragmentAdapter(Context context, FragmentManager fm, List<String> data) {
         super(fm);
         mContext = context;
     }
 
-    public void updateProducts(List<String> product){
-        this.data = new ArrayList<>(product);
-        Log.d("data updated", data.toString());
+    public void updateProducts(List<String> product) throws JSONException {
+        data = new ArrayList<>(product);
+        String stuff = product.get(0);
+        JSONObject obj = new JSONObject(stuff);
+        title = obj.getString("title").toString().replace("]", "").replace("\"", "");
+
+        JSONArray shippingInfoArray = obj.getJSONArray("shippingInfo");
+        JSONObject shippingServiceCostArray = shippingInfoArray.getJSONObject(0);
+        JSONArray shippingData = shippingServiceCostArray.getJSONArray("shippingServiceCost");
+        JSONObject shippingObj = shippingData.getJSONObject(0);
+        String shippingString = shippingObj.get("__value__").toString();
+        if(shippingString.equals("0.0")) shipping = "Free Shipping";
+        else shipping = "Ships for $"+shippingString;
+
+        //condition
+        JSONArray conditionArray = obj.getJSONArray("condition");
+        JSONObject conditionDisplayNameArray = conditionArray.getJSONObject(0);
+        JSONArray conditionData = conditionDisplayNameArray.getJSONArray("conditionDisplayName");
+        String conditionString = conditionData.get(0).toString();
+        String[] condArray = conditionString.split("", 1);
+        condition = condArray[0];
+
+        //String price
+        JSONArray costArray = obj.getJSONArray("sellingStatus");
+        JSONObject costArray2 = costArray.getJSONObject(0);
+        JSONArray costData = costArray2.getJSONArray("currentPrice");
+        JSONObject costObj = costData.getJSONObject(0);
+        String costString = costObj.get("__value__").toString();
+        cost = "$"+costString;
+
+        //image
+        String image = obj.get("galleryURL").toString().replace("[", "").replace("]", "").replace("\"", "");
+        Log.d("title", title + cost + condition + shipping);
+        //JSONArray title = obj.getJSONArray("title");
     }
     public void notifyItemChanged(MyAdapter.ViewHolder holder, int position) {};
 
