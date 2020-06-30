@@ -53,6 +53,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         try {
             JSONObject obj = new JSONObject(product);
             String title = obj.get("title").toString().replace("[", "").replace("]", "").replace("\"", "");
+            //shipping
             JSONArray shippingInfoArray = obj.getJSONArray("shippingInfo");
             JSONObject shippingServiceCostArray = shippingInfoArray.getJSONObject(0);
             JSONArray shippingData = shippingServiceCostArray.getJSONArray("shippingServiceCost");
@@ -60,10 +61,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             String shipping = shippingObj.get("__value__").toString();
             if(shipping.equals("0.0")) shipping = "Free Shipping";
             else shipping = "Ships for $"+shipping;
-            //String condition
+
+            //condition
+            JSONArray conditionArray = obj.getJSONArray("condition");
+            JSONObject conditionDisplayNameArray = conditionArray.getJSONObject(0);
+            JSONArray conditionData = conditionDisplayNameArray.getJSONArray("conditionDisplayName");
+            String condition = conditionData.get(0).toString();
+            Log.d("condition", "condition"+condition);
+
             //String price
+
+
             String image = obj.get("galleryURL").toString().replace("[", "").replace("]", "").replace("\"", "");
-            ProductData data = new ProductData(title, shipping, "0", "good", image);
+            ProductData data = new ProductData(title, shipping, condition, "good", image);
             holder.setItem(data);
 
             String url = obj.get("viewItemURL").toString();
