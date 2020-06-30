@@ -27,6 +27,7 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     private String brand;
     private String shipping;
     private String condition;
+    ProductData productData;
 
     public FragmentAdapter(Context context, FragmentManager fm, List<String> data) {
         super(fm);
@@ -65,6 +66,7 @@ public class FragmentAdapter extends FragmentPagerAdapter {
 
         //image
         String image = obj.get("galleryURL").toString().replace("[", "").replace("]", "").replace("\"", "");
+        productData = new ProductData(title, shipping, condition, cost, image, "10");
         Log.d("title", title + cost + condition + shipping);
         //JSONArray title = obj.getJSONArray("title");
     }
@@ -75,7 +77,7 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch(position) {
             case 0:
-                return ProductFragment.newInstance("test", "test2");
+                return ProductFragment.newInstance("This is the Title", "Cost");
             case 1:
                 return new SellerInfoFragment();
             case 2:
